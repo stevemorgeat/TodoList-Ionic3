@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Votre liste à faire
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="clearTaches()">
+        <ion-icon name="ios-construct-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      La liste
+    </ion-card-header>
+    <ion-list>
+      <ion-item-sliding *ngFor="let tache of todoList; let position=index" #slidingItem>
+        <ion-item>
+          <ion-checkbox (ionChange)="checkBoxCheck(position)" [checked]="tache.fait" ([ngModel])="tache.fait"></ion-checkbox>
+          <ion-label>
+            <h2>{{tache.titre}}</h2>
+            <p>{{tache.texte}}</p>
+          </ion-label>
+          <ion-avatar item-right>
+              <img [src]="tache.image" *ngIf="tache.image != null">
+            </ion-avatar>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="light" (click)="editTache(position,slidingItem)">
+            <ion-icon name="brush"></ion-icon>
+          </button>
+          <button ion-button color="danger" (click)="deleteTache(position)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <button ion-button full color="secondary" (click)="createTache()">Ajouter une tache à faire</button>
+  </ion-toolbar>
+</ion-footer>
